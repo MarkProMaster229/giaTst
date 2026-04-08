@@ -1,0 +1,19 @@
+body{
+    background-color: blue;
+}
+
+.textLabel {
+  position: absolute;
+  top: 20px;          
+  right: 0px;         
+  width: 300px;     
+  background-color:darkorange;
+}
+
+.LabelForum {
+  position: absolute; 
+  top: 300px;    
+  right: 280px;
+  width: 300px;
+  background-color:darkorange;
+}
