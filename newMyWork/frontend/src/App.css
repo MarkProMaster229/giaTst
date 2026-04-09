@@ -182,3 +182,36 @@
     border-right-color: var(--border);
   }
 }
+
+
+body{
+    background-color: rgb(76, 11, 138);
+}
+.MyHeader{
+  display: flex;
+  flex-direction:row;
+  margin-top: 10px;
+  padding: 10px;
+
+}
+.MyButtonInHeader{
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  gap: 15px;
+}
+.person{
+  position: absolute;
+  width: 200px;
+  margin-left: 800px;
+}
+.textLabel{
+  width: 300px;
+  margin: 0 auto;
+}
+.LabelForum{
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 10px;
+
+}

@@ -38,35 +38,58 @@ function App() {
       body: JSON.stringify(dataTest)
     })
   }
+  const [user, UserName] = useState("");
+  const Name = () => {
+    fetch('http://localhost:5000/NickName', {
+      method: 'POST', 
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ nickname: user })
+    })
+    .then(response => response.json())
+  }
     return (
-    <div style={{ padding: '20px', fontFamily: 'Arial' }}>
-      <h1>🐾 My Furry Social Network</h1>
-      <p>{message}</p>
-      <div>
-      <button onClick={handleClick}>
-        Отправить запрос /Mydildo/pay
-      </button>
-    </div>
-    <button onClick={data}>
-      кинуть
-    </button>
+<div>
+      <header className='MyHeader'>
+        <h1>MyForum</h1>
+        <div className='MyButtonInHeader'>
+          <button type="submit"> aboutMe </button>
+          <button type="submit"> youKnowWhatThis. </button>
+        </div>
+      </header>
       
-      <div>
-        <h2>Пользователи (заглушка)</h2>
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>
-              {user.name} (@{user.login})
-            </li>
-          ))}
-        </ul>
+    <div className='usingNickName'>
+        <h4>привет! тут не нужно регистрирвоаться!</h4>
+        <h4>ты можешь взять себе любое имя и использовать его что бы писать на этом форуме</h4>
+        <input type="text" value={user} onChange={(e) => UserName(e.target.value)} name = "name"/>
+        <button type="submit"> установить ник! </button>
+        <button onClick={Name}>
+          загрузит
+          </button>
+    </div>
 
-      </div>
-      
-      <button onClick={() => alert('Flask пока не подключён!')}>
-        Нажми меня
-      </button>
+    <div class="textLabel">
+        <h1>yourLabel</h1>
+        <textarea name="yourText" rows="5" cols="40">Введите ваш текст здесь...</textarea>
+        <p>
+          <button type="submit"> отправить сообщение </button>
+        </p>
     </div>
+
+    <div className="person">
+      <img src="\src\assets\frytigetAero.jpg" width="300" alt="I"/>
+    </div>
+    <div class="LabelForum">
+        <h6>дата: никнейм: </h6>
+        <h3>тут появятся новый сообщения всех кто писал на форуме!</h3>
+    </div>
+
+    <footer class="MyFooter">
+      <p>Everything what you watch this, belog you.</p>
+      <p>"MIT license"</p>
+    </footer>
+</div>
   );
 }
 

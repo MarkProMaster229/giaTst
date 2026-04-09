@@ -32,6 +32,15 @@ def pay_handler():
         'amount': 100
     }
     return jsonify(result)
+
+@app.route('/NickName',methods=['POST'])
+def Myrequest():
+    data = request.get_json()
+    print(f"input {data}")
+
+    return jsonify({'status': 'ok'})
+
+
 if __name__ == '__main__':
     app.run(port=5000)
 
