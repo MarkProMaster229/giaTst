@@ -1,10 +1,10 @@
 from myBD.endineBd import SessionLocal, Base
-from myBD.models import User, personaos, commentss, likesusers
+from myBD.models import Users, forumMessage
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, origins=['http://localhost:5173'])
-
+#npm create vite@latest frontend --template react
 @app.route('/spermoglot3000', methods=['POST'])
 def receive_data():
     data = request.get_json()
@@ -37,12 +37,55 @@ def pay_handler():
 def Myrequest():
     data = request.get_json()
     print(f"input {data}")
-
+    print("Имя:", data.get('nickname'))
+    with SessionLocal() as session:
+        newNickname = Users(nickname = data.get('nickname'))
+        session.add(newNickname)
+        session.commit()
     return jsonify({'status': 'ok'})
 
+@app.route('/message', methods=['POST'])
+def MyMessage():
+    data = request.get_json()
+    print(data.get("messageJso"))
+    print("Имя:", data.get('nameUsers'))
+    if data.get('nameUsers') == None:
+        return jsonify({'status': 'NoNickname'}) 
+    with SessionLocal() as session:
+        nickname = data.get('nameUsers')
+        users = session.query(Users).filter(Users.nickname == nickname).first()
+        if not users:
+            users = Users(nickname = data.get('nameUsers'))
+            session.add(users)
+            session.flush()#id
+        newMessage = forumMessage(message = data.get('messageJso'),fk_users = users.id)
+        users = Users(nickname=data.get('nameUsers'), about="")
+        session.add(newMessage)
+        session.commit()
+    return jsonify({'status': 'ok'})
+
+@app.route('/returnMessage',methods = ['GET'])
+def returnRes():
+    with SessionLocal() as session:
+        results = session.query(
+            forumMessage.id,
+            forumMessage.message,
+            forumMessage.massadedata,
+            Users.nickname
+            ).join(Users, forumMessage.fk_users == Users.id).order_by(forumMessage.massadedata.desc()).all()
+        result = [
+            {
+                'id': row.id,
+                'message': row.message,
+                'date': row.massadedata.strftime("%Y-%m-%d %H:%M:%S") if row.massadedata else None,
+                'nickname': row.nickname
+                }
+                for row in results
+                ]
+    return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(port=5000)
+        app.run(host='0.0.0.0', port=5000, debug=True)
 
 
 
