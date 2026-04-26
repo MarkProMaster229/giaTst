@@ -1,0 +1,30 @@
+body{
+    background-color: blue;
+}
+.MyHeader{
+  display: flex;
+  flex-direction:row;
+  margin-top: 10px;
+  padding: 10px;
+
+}
+.MyButtonInHeader{
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  gap: 15px;
+}
+.person{
+  width: 200px;
+  margin-left: 1400px;
+}
+.textLabel{
+  width: 300px;
+  margin: 0 auto;
+}
+.LabelForum{
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 10px;
+
+}
