@@ -9,11 +9,15 @@ function App() {
   
   const give_full_people = () => {
     fetch('http://localhost:5000/fullPeople',{
-      method: 'POST',
+      method: 'GET',
       headers:{
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ messageforyou:1 })
+    })
+    //only post!
+    .then(response => response.json())
+    .then(data => {
+      console.log('server return:', data.message);
     })
   }
 
