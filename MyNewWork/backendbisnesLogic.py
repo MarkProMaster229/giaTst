@@ -2,41 +2,56 @@ from myBd.engine import SessionLocal, Base
 from myBd.fastmodel import Fine, Users, Event, Firsona, EventUsers
 from sqlalchemy import select
 class GetInfo:
-    def full_info(self):
+    @staticmethod
+    def full_info():
         print("вся информация по посетителям")
 
         #users
         with SessionLocal() as session:
             result = session.execute(select(Users))
-            users = result.scalars().all()
-            for users in users:
+            users_full = result.scalars().all()
+            user_mass = []
+            for users in users_full:
+                user_mass.append(users.name)
                 print(users.name)
         #event
         with SessionLocal() as session:
             result = session.execute(select(Event))
-            event = result.scalars().all()
-            for event1 in event:
-                print(event1.about_event)
+            event_full = result.scalars().all()
+            event_mass = []
+            for event in event_full:
+                event_mass.append(event.about_event)
         #Firsona
         with SessionLocal() as session:
             result = session.execute(select(Firsona))
-            firsona = result.scalars().all()
-            for firsona1 in firsona:
-                print(firsona1.about_me)
+            fursona_full = result.scalars().all()
+            fursona_mass = []
+            for fursona in fursona_full:
+                fursona_mass.append(fursona.about_me)
+
         #Fine
         with SessionLocal() as session:
             result = session.execute(select(Fine))
-            fine = result.scalars().all()
-            for fine1 in fine:
-                print(fine1.about_fine)
+            fine_full = result.scalars().all()
+            fine_mass = []
+            for fine in fine_full:
+                fine_mass.append(fine.about_fine)
         #EventUsers
         with SessionLocal() as session:
             result = session.execute(select(EventUsers))
-            eventUsers = result.scalars().all()
-            for eventUsers1 in eventUsers:
-                print(eventUsers1.about)
+            eventUsers_full = result.scalars().all()
+            event_user_mass = []
+            for even_user in eventUsers_full:
+                event_user_mass.append(even_user.id)
+        
+        
+        return {
+            "users" : user_mass,
+            "event" : event_mass,
+            "fursona" : fursona_mass,
+            "fine" : fine_mass,
+            "event_user" : event_user_mass
+        }
         
 
         
-g = GetInfo()
-g.full_info()
