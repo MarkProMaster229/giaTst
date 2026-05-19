@@ -102,3 +102,31 @@ class Return_data():
                 })
         
         print(full_data[0]['about'])
+
+
+
+#create table users(
+#id serial primary key,
+#name varchar(255),
+#about text
+#)
+
+#create table pictures(
+#id serial primary key,
+#fk_users integer,
+#picture_patch varchar(255)
+#)
+
+#alter table pictures
+#add constraint fk_pictures_users
+#foreign key(fk_users) references users(id);
+
+#drop table users 
+#drop table pictures
+
+
+#select*
+#from users 
+
+#select*
+#from pictures
