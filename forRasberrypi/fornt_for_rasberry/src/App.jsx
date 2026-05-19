@@ -67,6 +67,8 @@ function App() {
     fetch('http://localhost:5000/server', {
       method: 'POST',
       body: formData
+    }).then(data => {
+        setFile(null);
     })
   }
   return (
@@ -102,7 +104,8 @@ function App() {
             type="file" 
             accept="image/*" 
             onChange={handleFileChange} 
-            className="file-input" 
+            className="file-input"
+            key={file ? 'has-file' : 'no-file'}
           />
         </label>
         

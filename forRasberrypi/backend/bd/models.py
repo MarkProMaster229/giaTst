@@ -5,7 +5,9 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from sqlalchemy import ForeignKeyConstraint, Integer, PrimaryKeyConstraint, String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
-databaseConn = "postgresql://postgres:1@localhost:5432/photo_may"
+import os
+
+databaseConn = os.environ.get("DATABASE_URL", "postgresql://postgres:1@localhost:5432/photo_may")
 
 
 engine = create_engine(

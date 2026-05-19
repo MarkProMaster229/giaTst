@@ -1,0 +1,8 @@
+Flask
+flask-cors
+minio
+SQLAlchemy
+psycopg2-binary
+Werkzeug
+urllib3
+certifi

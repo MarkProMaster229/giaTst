@@ -12,12 +12,11 @@ class minioConn():
     def __init__(self):
         self.testConnect = False
     def connect(self, imageFileName_f,imagesBite,):
-        client = Minio(
-            "localhost:9000",
-            access_key="rootadmin",
-            secret_key="supersecretpassword123",
-            secure=False
-        )
+        minio_endpoint = os.environ.get("MINIO_ENDPOINT", "localhost:9000")
+        minio_access = os.environ.get("MINIO_ACCESS_KEY", "rootadmin")
+        minio_secret = os.environ.get("MINIO_SECRET_KEY", "supersecretpassword123")
+        client = Minio(minio_endpoint, access_key=minio_access, secret_key=minio_secret, secure=False)
+
         raw_bytes = imagesBite.read()
         length = len(raw_bytes)
 
@@ -81,13 +80,12 @@ class Return_data():
             "images": [pic.picture_patch for pic in user.pictures]
         })
         #print(users_list) 
+        minio_endpoint = os.environ.get("MINIO_ENDPOINT", "localhost:9000")
+        minio_access = os.environ.get("MINIO_ACCESS_KEY", "rootadmin")
+        minio_secret = os.environ.get("MINIO_SECRET_KEY", "supersecretpassword123")
+
+        client = Minio(minio_endpoint, access_key=minio_access, secret_key=minio_secret, secure=False)
         
-        client = Minio(
-            "localhost:9000",
-            access_key="rootadmin",
-            secret_key="supersecretpassword123",
-            secure=False
-            )
         full_data = []
         for user in users_list:
             print(user['name'])

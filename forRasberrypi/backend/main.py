@@ -3,8 +3,9 @@ from flask_cors import CORS
 from bisnesLogic.bisnes import Analization, Return_data
 import uuid
 
-app = Flask(__name__)
-CORS(app, origins=['http://localhost:5173'])
+app = Flask(__name__, static_folder='../fornt_for_rasberry/dist', static_url_path='/')
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 @app.route('/server',methods=['POST'])
 def main_label():
@@ -27,9 +28,14 @@ def useEff():
     images_and_data = Return_data()
     type = images_and_data.retData()
     return jsonify(type)
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
       
 
 
 
 if __name__ == '__main__':
         app.run(host='0.0.0.0', port=5000, debug=True)
+        
