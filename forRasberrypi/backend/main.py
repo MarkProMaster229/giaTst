@@ -19,12 +19,17 @@ def main_label():
     bisnes_logic = Analization()
     bisnes_logic.initialization(user,about,originalName)
     bisnes_logic.workForSave(image, originalName)
-    
+
     return jsonify({'status': 'ok'})
+
+@app.route('/getMyImages', methods=['GET'])
+def useEff():
+    images_and_data = Return_data()
+    type = images_and_data.retData()
+    return jsonify(type)
+      
 
 
 
 if __name__ == '__main__':
-        rr = Return_data()
-        rr.retData()
         app.run(host='0.0.0.0', port=5000, debug=True)

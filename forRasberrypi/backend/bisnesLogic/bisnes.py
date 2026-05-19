@@ -6,6 +6,7 @@ from sqlalchemy.orm import joinedload
 from minio import Minio
 import os
 import io 
+import base64
 
 class minioConn():
     def __init__(self):
@@ -95,13 +96,18 @@ class Return_data():
                 print(patch)
                 response = client.get_object(bucket, filename)
                 file_bytes = response.read()
+                #какой то хитровыебаный способ, хуй его знает как оно работает, да бля конечно 
+                #конечно сука мне жаль что я не понимаю как эта ебаная encoded_bytes работает
+                encoded_bytes = base64.b64encode(file_bytes).decode('utf-8')
+                data_url = f"data:image/jpeg;base64,{encoded_bytes}"
                 full_data.append({
                     'username': user['name'],
-                    'file': file_bytes,
+                    'file': data_url,#вот блять почему 
                     'about': user['about']
                 })
         
         print(full_data[0]['about'])
+        return full_data
 
 
 
