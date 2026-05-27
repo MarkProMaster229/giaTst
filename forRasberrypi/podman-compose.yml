@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   minio:
-    image: minio/minio:RELEASE.2022-10-29T06-21-33Z
+    image: docker.io/minio/minio:RELEASE.2022-10-29T06-21-33Z
+    restart: always
     command: server /data --console-address ":9001"
     ports:
       - "9000:9000"
@@ -14,7 +15,8 @@ services:
       - minio_data:/data
 
   postgres:
-    image: postgres:15
+    image: docker.io/library/postgres:15
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1
@@ -23,10 +25,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - .:/docker-entrypoint-initdb.d:ro
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
   backend:
     build: ./backend
+    restart: always
     ports:
       - "5000:5000"
     environment:
