@@ -8,7 +8,7 @@ create table users(
 );
 create table chat(
     id serial primary key,
-    id_for_chat64 bigint,-- генерация под 64 символа
+    id_for_chat64 text,-- генерация под 64 символа
     fk_user_1 integer not null,-- тут хардкодится связь меж юзерами
     fk_user_2 integer not null,-- тут хардкодится связь меж юзерами
     fk_image integer -- ну это обьект minio
@@ -21,9 +21,12 @@ create table forum(
 );
 create table image(
     id serial primary key,
+    fk_chat integer,
     about text,-- я предполагаю что фото можно описать юзером, но можно и не описывать
     link_for_minio text--ссылка на объект в minio
 );
+drop table image cascade 
+drop table chat cascade 
 create table message(
     id serial primary key,
     message text,
@@ -49,5 +52,5 @@ foreign key(fk_message)references message(id);
 
 alter table image 
 add constraint fk_chat
-foreign key(fk_chat)references chat(id)
+foreign key(fk_chat)references chat(id);
 
