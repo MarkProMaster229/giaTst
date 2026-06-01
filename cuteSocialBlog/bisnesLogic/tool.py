@@ -1,23 +1,19 @@
 from bdforApp.models import SessionLocal
 from bdforApp.models import Chat, Image, Message, Users, Forum
 
+class Tools():
+    @staticmethod
+    def error_password(self):
+        breakPassword = ["123","123456789","qazwsx123", "987654321"]#and more
+        return breakPassword
+
 class Registration():
     def __init__(self):
         we_have_this_name = False
         we_have_this_password = False
 
-    
-    class Tools():
-        @staticmethod
-        def error_password(self):
-            breakPassword = ["123","123456789","qazwsx123", "987654321"]#and more
-            return breakPassword
-        @staticmethod
-        def help_fun_for_make_mistakes(self):
-            print("probably I fix you!")
 
-
-    def login_or_password(self, login, password):
+    def login_or_password_registration(self, login, password):
         full_login = []
 
         with SessionLocal() as session:
@@ -53,4 +49,40 @@ class Registration():
         print("all work!")
 
 
+class Autorization():
+    def __init__(self):
+        correct_password = True
+        correct_name = True
+    
+    def autorization(self):
+        #конкретно по логинам - 
+        all_username = []
+        all_password = []
+        
+        with SessionLocal() as session:
+            result = session.query(Users.user_name).all#требует рефакторинг
+            for name in result:
+                all_username.append(name[0])
 
+        for include_name in all_username:
+            if what_read_user_login == include_name:
+                print("will done")
+                #доступ разрешен
+                #логика разрешения доступа
+            else:
+                correct_name = False
+                print("name is not correct")
+                return 1
+        #конкретно по паролям
+        with SessionLocal() as session:
+            result = session.query(Users.user_password).all
+            for password in result:
+                all_password.append[password[0]]
+        for password in all_password:
+            if what_read_user_password == password:
+                print("will done")
+                #пароль сошелся 
+                #логика тут некая 
+            else:
+                correct_password = False
+                print("password cannot be correct")

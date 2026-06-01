@@ -4,7 +4,11 @@ from bisnesLogic.tool import Registration
 
 app = Flask(__name__)
 CORS(app)
-
+#первый роут регистрационный
+@app.route('/',methods = ['GET'])
+def registration():
+    registrationOBJ = Registration()
+    
 
 
 if __name__ == '__main__':
