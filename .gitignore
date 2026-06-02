@@ -9,3 +9,6 @@ forRasberrypi/backend/bisnesLogic/__pycache__/bisnes.cpython-314.pyc
 forRasberrypi/backend/bisnesLogic/__pycache__/__init__.cpython-314.pyc
 forRasberrypi/backend/bd/__pycache__/models.cpython-314.pyc
 forRasberrypi/backend/bd/__pycache__/__init__.cpython-314.pyc
+cuteSocialBlog/bdforApp/__pycache__/__init__.cpython-314.pyc
+cuteSocialBlog/bdforApp/__pycache__/models.cpython-314.pyc
+cuteSocialBlog/bisnesLogic/__pycache__/tool.cpython-314.pyc

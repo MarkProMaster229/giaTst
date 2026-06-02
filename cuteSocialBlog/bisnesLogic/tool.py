@@ -13,7 +13,7 @@ class Registration():
         we_have_this_password = False
 
 
-    def login_or_password_registration(self, login, password):
+    def login_or_password_registration(self, what_read_user_login, what_read_user_password):
         full_login = []
 
         with SessionLocal() as session:
@@ -39,14 +39,17 @@ class Registration():
             return 2
 
         if we_have_this_name and we_have_this_password == True:
-            new_user = (
-                what_read_user_login,
-                what_read_user_password
-            )
-            session.add(new_user)
-            session.commit()
+            try:
+                new_user = (
+                    what_read_user_login,
+                    what_read_user_password
+                )
+                session.add(new_user)
+                session.commit()
 
-        print("all work!")
+                print("all work!")
+            except Exception as e:
+                print("упала база в моменте регистрации")
 
 
 class Autorization():
@@ -54,7 +57,7 @@ class Autorization():
         correct_password = True
         correct_name = True
     
-    def autorization(self):
+    def autorization(self, what_read_user_login, what_read_user_password):
         #конкретно по логинам - 
         all_username = []
         all_password = []
@@ -86,3 +89,8 @@ class Autorization():
             else:
                 correct_password = False
                 print("password cannot be correct")
+        #выходит раз два флага так и остались true мы гарантируем что и логин и пароль есть в базе 
+        if correct_name and correct_password:
+            print("everything good!")
+            return 200
+        

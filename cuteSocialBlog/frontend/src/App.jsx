@@ -6,9 +6,9 @@ import './App.css'
 
 function App() {
   const [string_name, setName] = useState('')
-  const [password, setPassword] =useState('')
+  const [password, setPassword] = useState('')
   const [regORautoriz, setRegORautoriz] = useState(false)//ну пусть регистрированый юзер - false, тот кому предстоит пройти регистрацию - true хз
-
+  const [correctDataToBackend, setCorrectDataToBackend] = useState(true)
   const registration_logic = () => {
     fetch('http://localhost:5000/dataRegORAutoriz',{
       method: 'POST',
@@ -20,8 +20,15 @@ function App() {
           password: password,
           regOrAutor: regORautoriz
         })
-    }).then(respounse => respounse.json())
-    .then(data => console.log(data))
+    }).then(response => response.json())
+    //договоримся со мной - должен придти с бека че то типо doneRegOrAutoreg = true или false 
+    //если юзер своими лапками натыкал не туда например отправил запрос как регстрацию надо это обработать
+    //можно в состоянии фиксировать что было возвращено
+    .then(data => {
+      setCorrectDataToBackend(data.doneRegOrAutoreg);
+      //я тут подумал если успешно прошла авторизация я верну сюда че то 
+      
+    })
   };
 
 
