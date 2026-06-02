@@ -8,6 +8,7 @@ function App() {
   const [string_name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [regORautoriz, setRegORautoriz] = useState(false)//ну пусть регистрированый юзер - false, тот кому предстоит пройти регистрацию - true хз
+  //я запутался в ебучий false true
   const [correctDataToBackend, setCorrectDataToBackend] = useState(true)
   const registration_logic = () => {
     fetch('http://localhost:5000/dataRegORAutoriz',{
@@ -41,6 +42,10 @@ function App() {
       <input type="radio" name = "or" checked={regORautoriz === false} onChange={() => setRegORautoriz(false)} /> авторизироваться
       <input type="radio" name = "or" checked={regORautoriz === true} onChange={() => setRegORautoriz(true)}/>регистрироваться
       <button className='submit' onClick={registration_logic}> выполнить </button>
+      <label className='testLabel'>
+  {correctDataToBackend === true ? "Успешно залогинился!" : "Что-то пошло не так..."}
+</label>
+
     </div>
 
   </div>

@@ -12,12 +12,12 @@ def registration():
             return jsonify({"doneRegOrAutoreg": False, "error": "Данные не пришли"}), 400
     user = data.get('login')
     password = data.get('password')
-    mode = data.get('regORautoriz')
+    mode = data.get('regOrAutor')
     #а нахуя мне два класса 
     registrationOBJ = Registration()
     autorizationOBJ = Autorization()
     #если false как я говорил - регистрация
-    if mode is False or mode == "false":
+    if mode is False or mode == "False":
         try:
             registrationOBJ.login_or_password_registration(user,password)
             return jsonify({
@@ -31,6 +31,7 @@ def registration():
     #если true то авторизация
     if mode is True or mode == 'true':
         try:
+            print(autorizationOBJ.autorization(user, password))
             if autorizationOBJ.autorization(user, password) == 200:
                 #ну типо если все успешно надо че то вернуть
                 return jsonify({
@@ -38,10 +39,16 @@ def registration():
                 })
         except Exception as e:
             print("авторизации пизда")
+            print(e)
             return jsonify({
                 "doneRegOrAutoreg": False
             })
 
+    #все хуево
+    
+    return jsonify({
+        "doneRegOrAutoreg": False
+        })
         
     
 
