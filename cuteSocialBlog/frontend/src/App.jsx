@@ -39,8 +39,8 @@ function App() {
     <div className='name'>
       <input name='string_name' value={string_name} onChange={(e) => setName(e.target.value)}/>введите имя
       <input name='password' value={password} onChange={(e) => setPassword(e.target.value)}/>введите пароль
-      <input type="radio" name = "or" checked={regORautoriz === false} onChange={() => setRegORautoriz(false)} /> авторизироваться
-      <input type="radio" name = "or" checked={regORautoriz === true} onChange={() => setRegORautoriz(true)}/>регистрироваться
+      <input type="radio" name = "or" checked={regORautoriz === true} onChange={() => setRegORautoriz(true)} /> авторизироваться
+      <input type="radio" name = "or" checked={regORautoriz === false} onChange={() => setRegORautoriz(false)}/>регистрироваться
       <button className='submit' onClick={registration_logic}> выполнить </button>
       <label className='testLabel'>
   {correctDataToBackend === true ? "Успешно залогинился!" : "Что-то пошло не так..."}
