@@ -54,22 +54,22 @@ class Registration():
                     print("all work!")
                 except Exception as e:
                     print("упала база в моменте регистрации")
-
-
 class Autorization():
     def __init__(self):
-        correct_password = True
-        correct_name = True
+        self.correct_password = False
+        self.correct_name = True
     
     def autorization(self, what_read_user_login, what_read_user_password):
         #конкретно по логинам - 
         all_username = []
         all_password = []
-        
-        with SessionLocal() as session:
-            result = session.query(Users.user_name).all#требует рефакторинг
-            for name in result:
-                all_username.append(name[0])
+        try:
+            with SessionLocal() as session:
+                result = session.query(Users.user_name).all()#требует рефакторинг
+                for name in result:
+                    all_username.append(name[0])
+        except Exception as e:
+            print("я падаю в поменте открытия сессии и чтения юзеров")
 
         for include_name in all_username:
             if what_read_user_login == include_name:
@@ -81,18 +81,20 @@ class Autorization():
                 print("name is not correct")
                 return 1
         #конкретно по паролям
-        with SessionLocal() as session:
-            result = session.query(Users.user_password).all
-            for password in result:
-                all_password.append[password[0]]
-        for password in all_password:
-            if what_read_user_password == password:
-                print("will done")
-                #пароль сошелся 
-                #логика тут некая 
-            else:
-                correct_password = False
-                print("password cannot be correct")
+        try:
+            with SessionLocal() as session:
+                result = session.query(Users.user_password).all()
+                for iteration in result:
+                    all_password.append(iteration[0])
+                
+                for i in all_password:
+                    if i == what_read_user_password:
+                        self.correct_password = True
+                        break
+            if self.correct_password == False:
+                    print("как уже ранее было сказано - пароль не найден")
+        except Exception as e:
+            print("я падаю в момент открытия сессии и чтения паролей")
 
         print(correct_name)
         print(correct_password)
