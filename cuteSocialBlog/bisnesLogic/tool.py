@@ -55,14 +55,12 @@ class Registration():
                 except Exception as e:
                     print("упала база в моменте регистрации")
 class Autorization():
-    def __init__(self):
-        self.correct_password = False
-        self.correct_name = True
-    
     def autorization(self, what_read_user_login, what_read_user_password):
+        correct = False
         #конкретно по логинам - 
         all_username = []
         all_password = []
+        all_login_password = []
         try:
             with SessionLocal() as session:
                 result = session.query(Users.user_name).all()#требует рефакторинг
@@ -70,36 +68,35 @@ class Autorization():
                     all_username.append(name[0])
         except Exception as e:
             print("я падаю в поменте открытия сессии и чтения юзеров")
-
-        for include_name in all_username:
-            if what_read_user_login == include_name:
-                print("will done")
-                #доступ разрешен
-                #логика разрешения доступа
-            else:
-                correct_name = False
-                print("name is not correct")
-                return 1
         #конкретно по паролям
         try:
             with SessionLocal() as session:
                 result = session.query(Users.user_password).all()
                 for iteration in result:
                     all_password.append(iteration[0])
-                
-                for i in all_password:
-                    if i == what_read_user_password:
-                        self.correct_password = True
-                        break
-            if self.correct_password == False:
-                    print("как уже ранее было сказано - пароль не найден")
+
         except Exception as e:
             print("я падаю в момент открытия сессии и чтения паролей")
+        
+        for i in range(len(all_username)):#ну логично сколько имен столько и паролей ведь так ?
+            all_login_password.append({
+                "name": all_username[i], 
+                "password": all_password[i]
+                })
 
-        print(correct_name)
-        print(correct_password)
+        #а вот сейчас нужно создать список что обеденит то что написал юзер
+        what_read_user_mass = {
+            "name": what_read_user_login,
+            "password": what_read_user_password
+        }
+        # вот теперь мы имеем эталонную мапу и всю базу данных в мапе 
+        # теперь можно сравнить с эталонной мапой 
+        for i in range(len(all_login_password)):
+            if all_login_password[i] == what_read_user_mass:
+                correct = True
+
         #выходит раз два флага так и остались true мы гарантируем что и логин и пароль есть в базе 
-        if correct_name and correct_password:
+        if correct == True:
             print("everything good!")
             return 200
         
