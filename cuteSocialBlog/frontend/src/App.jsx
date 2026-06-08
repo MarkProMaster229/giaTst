@@ -7,6 +7,7 @@ import './App.css'
 function App() {
   const [string_name, setName] = useState('')
   const [password, setPassword] = useState('')
+  const [whyThis, setwhyThis] = useState('')
   const [regORautoriz, setRegORautoriz] = useState(false)//ну пусть регистрированый юзер - false, тот кому предстоит пройти регистрацию - true хз
   //я запутался в ебучий false true
   const [correctDataToBackend, setCorrectDataToBackend] = useState(true)
@@ -27,7 +28,8 @@ function App() {
     //можно в состоянии фиксировать что было возвращено
     .then(data => {
       setCorrectDataToBackend(data.doneRegOrAutoreg);
-      //я тут подумал если успешно прошла авторизация я верну сюда че то 
+      //я тут подумал если успешно прошла авторизация я верну сюда че то
+      setwhyThis(data.what) 
       
     })
   };
@@ -45,6 +47,9 @@ function App() {
       <label className='testLabel'>
   {correctDataToBackend === true ? "Успешно залогинился!" : "Что-то пошло не так..."}
 </label>
+      <label className='testLabel2'>
+        {whyThis=== "registration" ? "регистрация" : "авторизация"}
+      </label>
 
     </div>
 

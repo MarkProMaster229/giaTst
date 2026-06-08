@@ -21,7 +21,8 @@ def registration():
         try:
             registrationOBJ.login_or_password_registration(user,password)
             return jsonify({
-                "doneRegOrAutoreg": True
+                "doneRegOrAutoreg": True,
+                "what": "registration"
             })
         except Exception as e:
             print("регистрации пизда")
@@ -35,7 +36,8 @@ def registration():
             if autorizationOBJ.autorization(user, password) == 200:
                 #ну типо если все успешно надо че то вернуть
                 return jsonify({
-                    "doneRegOrAutoreg": True
+                    "doneRegOrAutoreg": True,
+                    "what": "autorization"
                 })
         except Exception as e:
             print("авторизации пизда")

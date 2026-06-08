@@ -98,5 +98,17 @@ class Autorization():
         #выходит раз два флага так и остались true мы гарантируем что и логин и пароль есть в базе 
         if correct == True:
             print("everything good!")
+            
+            def includeID():
+                #добавим id в список чуть смешно но это все равно надо рефакторить
+                for incriment in range(1, len(all_login_password)):
+                    all_login_password.append({
+                        "id": incriment,
+                        "name": all_username[incriment],
+                        "password": all_password[incriment]
+                    })
+                print(all_login_password)
+            a = includeID()
+            print(a)
             return 200
         
