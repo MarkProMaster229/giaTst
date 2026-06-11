@@ -59,10 +59,23 @@ class Order():
         try:
             with SessionLocal() as session:
                 query = (
-                    select(Customers.name).join(Orders, Customers.id == Orders.customer_id)
+                    #select(Customers.name, Orders.order_date).join(Orders, Customers.id == Orders.customer_id)
+                    
+                    #select(Customers.name, Products.name)
+                    #.join(Orders, Customers.id == Orders.customer_id)
+                    #.join(OrderItems, Orders.id == OrderItems.order_id)
+                    #.join(Products, Products.id == OrderItems.product_id)
+
+                    #select(Orders.order_date,Customers.name, OrderItems.quantity, OrderItems.unit_price)
+                    #.join(Customers, Customers.id == Orders.customer_id)
+                    #то есть на первом этапе выбираем центральную таблицу - кастомер затем вызываем таблицу - объект что связывает Клиентов их заказы это order (join(Orders, Customers.id == Orders.customer_id)) теперь мы имеем конкатенацию ИЗ центральной Customers И условия что мы назначили через join далее уже К конкретно это таблице что получилась применяем следующий join хотя судя по результату - это не имеет смысла из вывода видно что ('Ольга Иванов', 'Учебник')('Ольга Иванов', 'Детектив') какой клиент купил конкретный товар но как ? мы же связали только покупателей С их заказами! не с товарами! а с заказами!
+                    select(Customers.name, Products.name)
+                    .join(Orders, Customers.id == Orders.customer_id)
+                    .join(OrderItems, OrderItems.order_id == OrderItems.product_id) #первый заказ включает третий товар к примеру!
                 )
+
                 result = session.execute(query)
-                name = result.scalars().all()
+                name = result.all()
             for i in range(len(name)):
                 print(name[i])
 
