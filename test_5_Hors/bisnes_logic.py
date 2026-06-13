@@ -55,7 +55,7 @@ class Product():
 #получение заказов клиента 
 #мне прям ооочень тяжело с базой работать и запросы писать вот это вообще мое очень слабое место! очень опасно 2 часа потрачено на запросы!!!! 
 class Order():
-    def order_client(self):
+    def order_client(self,name):
         try:
             with SessionLocal() as session:
                 query = (
@@ -72,6 +72,7 @@ class Order():
                     select(Customers.name, Products.name)
                     .join(Orders, Customers.id == Orders.customer_id)
                     .join(OrderItems, OrderItems.order_id == OrderItems.product_id) #первый заказ включает третий товар к примеру!
+                    .where(Products.name.ilike(name))
                 )
 
                 result = session.execute(query)
@@ -89,4 +90,4 @@ obj_test_product = Product()
 obj_test_product.get_categor(2,3)
 
 obj_test_Order = Order()
-obj_test_Order.order_client()
+obj_test_Order.order_client('смартфон')
